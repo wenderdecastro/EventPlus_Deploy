@@ -41,33 +41,33 @@ export default function EventosPaage(props) {
 
   // READ - LIFE CICLE - Carrega os tipos de evento no carregamento do componente
   useEffect(() => {
-    async function loadEventsType() {
-      setShowSpinner(true);
-
-      try {
-        const promise = await api.get(eventsResource);
-        const promiseTipoEventos = await api.get(eventsTypeResource);
-        const promiseInstituicao = await api.get(institutionResource);
-        //só tem uma instituição neste projeto mas já fica preparado pra adicionar mais!
-        setEventos(promise.data);
-
-        const tpEventosModificado = [];
-        //retorno da api (array tipo de eventos)
-        promiseTipoEventos.data.forEach((event) => {
-          tpEventosModificado.push({ value: event.idTipoEvento, text: event.titulo });
-        });
-
-        setTiposEvento(tpEventosModificado);
-        setInstituicao(promiseInstituicao.data[0].idInstituicao);
-        console.log(promiseTipoEventos.data);
-        // console.log(promiseInstituicao.data[0].idInstituicao);
-      } catch (error) {}
-      setShowSpinner(false);
-    }
-
     loadEventsType();
   }, [frmEdit]); //frmEdit[instituicao ]
 
+  async function loadEventsType() {
+    setShowSpinner(true);
+
+    try {
+      const promise = await api.get(eventsResource);
+      const promiseTipoEventos = await api.get(eventsTypeResource);
+      const promiseInstituicao = await api.get(institutionResource);
+      //só tem uma instituição neste projeto mas já fica preparado pra adicionar mais!
+      setEventos(await promise.data);
+
+      const tpEventosModificado = [];
+      //retorno da api (array tipo de eventos)
+      promiseTipoEventos.data.forEach((event) => {
+        tpEventosModificado.push({ value: event.idTipoEvento, text: event.titulo });
+      });
+
+      setTiposEvento(tpEventosModificado);
+      setInstituicao(promiseInstituicao.data[0].idInstituicao);
+      console.log(promiseTipoEventos.data);
+      console.log(promise.data);
+      // console.log(promiseInstituicao.data[0].idInstituicao);
+    } catch (error) {}
+    setShowSpinner(false);
+  }
   // UPDATE
   function editActionAbort() {
     setFrmEdit(false);

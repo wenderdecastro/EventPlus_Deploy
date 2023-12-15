@@ -8,7 +8,6 @@ import Spinner from "../../components/Spinner/Spinner";
 import Modal from "../../components/Modal/Modal";
 import api, {
   eventsResource,
-  myEventsResource,
   presencesEventResource,
   commentaryEventResource,
 } from "../../Services/Service";
@@ -37,9 +36,12 @@ const EventosAlunoPage = () => {
   const [idEvento, setIdEvento] = useState("");
   const [idComentario, setIdComentario] = useState(null);
 
+  // console.log(userData.role);
+
+
   useEffect(() => {
     loadEventsType();
-  }, [tipoEvento, userData.userId]); //
+  }, [userData.userId, tipoEvento]); //
 
   async function loadEventsType() {
     setShowSpinner(true);
@@ -49,7 +51,7 @@ const EventosAlunoPage = () => {
       try {
         const todosEventos = await api.get(eventsResource);
         const meusEventos = await api.get(
-          `${myEventsResource}/${userData.userId}`
+          `${presencesEventResource}/${userData.userId}`
         );
 
         const eventosMarcados = verificaPresenca(
@@ -81,7 +83,7 @@ const EventosAlunoPage = () => {
        */
       try {
         const retornoEventos = await api.get(
-          `${myEventsResource}/${userData.userId}`
+          `${presencesEventResource}/${userData.userId}`
         );
         // console.clear();
         // console.log("MINHAS PRESENÇAS");
@@ -150,19 +152,17 @@ const EventosAlunoPage = () => {
     try {
       // api está retornando sempre todos os comentários do usuário
       const promise = await api.get(
-        `${commentaryEventResource}?idUsuario=${idUsuario}&idEvento=${idEvento}`
+        `${commentaryEventResource}/buscarComentarioId?idUsuario=${idUsuario}&idEvento=${idEvento}`
       );
 
-      const myComm = await promise.data.filter(
-        (comm) => comm.idEvento === idEvento && comm.idUsuario === idUsuario
-      );
 
-      // console.log("QUANTIDADE DE DADOS NO ARRAY FILTER");
-      // console.log(myComm.length);
-      // console.log(myComm);
+      // const myComm = await promise.data.filter((comm) => comm.idEvento === idEvento && comm.idUsuario === idUsuario);
+      const myComm = await promise.data;
 
-      setComentario(myComm.length > 0 ? myComm[0].descricao : "");
-      setIdComentario(myComm.length > 0 ? myComm[0].idComentarioEvento : null);
+      console.log(myComm);
+
+      setComentario(myComm != null ? myComm.descricao : "");
+      setIdComentario(myComm != null ? myComm.idComentarioEvento : null);
     } catch (error) {
       console.log("Erro ao carregar o evento");
       console.log(error);
@@ -172,7 +172,7 @@ const EventosAlunoPage = () => {
   // cadastrar um comentário = post
   const postMyCommentary = async (descricao, idUsuario, idEvento) => {
     try {
-      const promise = await api.post(commentaryEventResource, {
+      const promise = await api.post(`${commentaryEventResource}/ComentarioIA`, {
         descricao: descricao,
         exibe: true,
         idUsuario: idUsuario,
@@ -197,7 +197,7 @@ const EventosAlunoPage = () => {
         `${commentaryEventResource}/${idComentario}`
       );
       if (promise.status === 200) {
-        alert("Evento excluído com sucesso!");
+        alert("comentario excluído com sucesso!");
       }
     } catch (error) {
       console.log("Erro ao excluir ");
@@ -219,23 +219,24 @@ const EventosAlunoPage = () => {
           loadEventsType();
           alert("Presença confirmada, parabéns");
         }
-      } catch (error) {}
+      } catch (error) { }
       return;
     }
-
-    // unconnect - aqui seria o else
-    try {
-      const unconnected = await api.delete(
-        `${presencesEventResource}/${presencaId}`
-      );
-      if (unconnected.status === 204) {
-        loadEventsType();
-        alert("Desconectado do evento");
+    else {
+      try {
+        const unconnected = await api.delete(
+          `${presencesEventResource}/${presencaId}`
+        );
+        if (unconnected.status === 204) {
+          loadEventsType();
+          alert("Desconectado do evento");
+        }
+      } catch (error) {
+        console.log("Erro ao desconecar o usuário do evento");
+        console.log(error);
       }
-    } catch (error) {
-      console.log("Erro ao desconecar o usuário do evento");
-      console.log(error);
     }
+    // unconnect - aqui seria o else
   }
 
   return (

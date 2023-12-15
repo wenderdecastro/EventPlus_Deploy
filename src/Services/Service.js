@@ -11,13 +11,9 @@ import axios from 'axios';
  */
 export const eventsResource = '/Evento';
 /**
- * Rota para o recurso Listar Minhas Presenças
- */
-export const myEventsResource = '/PresencasEvento/ListarMinhas';
-/**
  * Rota para o recurso Presenças Evento
  */
-export const presencesEventResource = '/PresencasEvento';
+export const presencesEventResource = '/PresencaEvento';
 /**
  * Rota para o recurso Presenças Evento
  */
@@ -27,10 +23,16 @@ export const commentaryEventResource = '/ComentariosEvento';
  * Rota para o recurso Próximos Eventos
  */
 export const nextEventResource = '/Evento/ListarProximos';
+
+/**
+ * Rota para o recurso Próximos Eventos
+ */
+export const previousEventResource = '/Evento/ListarAnteriores';
+
 /**
  * Rota para o recurso Tipos de Eventos
  */
-export const eventsTypeResource = '/TiposEvento';
+export const eventsTypeResource = '/TipoEvento';
 /**
  * Rota para o recurso Instituição
  */
@@ -40,8 +42,8 @@ export const institutionResource = '/Instituicao';
  */
 export const loginResource = '/Login';
 
-const apiPort = '5000';
-const localApiUri = `https://eventplusapi.azurewebsites.net/:${apiPort}/api`;
+const apiPort = '7284';
+const localApiUri = `https://localhost/:${apiPort}/api`;
 const externalApiUri = `https://eventplusapi.azurewebsites.net/api`;
 // const externalApiUri = null;
 

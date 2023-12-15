@@ -36,7 +36,6 @@ const LoginPage = () => {
         });
 
         const userFullToken = userDecodeToken(promise.data.token); // decodifica o token vindo da api
-
         setUserData(userFullToken); // guarda o token globalmente
         localStorage.setItem("token", JSON.stringify(userFullToken));
         navigate("/"); //envia o usuário para a home
