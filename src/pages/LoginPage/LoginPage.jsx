@@ -4,7 +4,7 @@ import logo from "../../assets/images/logo-pink.svg";
 import { Input, Button } from "../../components/FormComponents/FormComponents";
 import loginImage from "../../assets/images/login.svg";
 import api, { loginResource } from "../../Services/Service";
-import { useNavigate, Redirect } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import "./LoginPage.css";
 import { UserContext, userDecodeToken } from "../../context/AuthContext";
@@ -18,7 +18,7 @@ const LoginPage = () => {
 
   useEffect(() => {
     if (userData.nome) {
-      navigate('/')
+      navigate("/");
     }
   }, [userData]);
 

@@ -7,6 +7,7 @@ import api, { commentaryEventResource, eventsResource } from '../../Services/Ser
 import { redirect, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import Spinner from '../../components/Spinner/Spinner';
 import Table from './TableDetails/TableDetails'
+import './EventDetails.jsx'
 
 const EventDetails = () => {
 
@@ -55,19 +56,21 @@ const EventDetails = () => {
 
     return (
         <>
-        <MainContent>
-            <Container>
-              <Title titleText={"Detalhes do evento"} />
-              <Table
-                nomeEvento={evento.nomeEvento}
-                descricao={evento.descricao}
-                tipoEvento={evento.tipoEvento}
-                dataEvento={new Date(evento.dataEvento).toLocaleDateString()}
-                comentarios={comentarios}
-              />
-            </Container>
-        </MainContent>
-      </>
+            <MainContent>
+                <Container>
+                    <div style={{ margin: 50 + "px" }} >
+                        <Title titleText={"Detalhes do evento"} />
+                    </div>
+                    <Table
+                        nomeEvento={evento.nomeEvento}
+                        descricao={evento.descricao}
+                        tipoEvento={evento.tipoEvento}
+                        dataEvento={new Date(evento.dataEvento).toLocaleDateString()}
+                        comentarios={comentarios}
+                    />
+                </Container>
+            </MainContent>
+        </>
     );
 };
 

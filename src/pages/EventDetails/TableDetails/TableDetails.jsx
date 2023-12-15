@@ -1,57 +1,61 @@
 import React from "react";
 import "./TableDetails.css";
+import Title from "../../../components/Title/Title";
 
 const Table = ({ nomeEvento, descricao, dataEvento, comentarios }) => {
-  return (
-    <table className="tbal-data">
-      {
-        <thead className="tbal-data__head">
-          <tr className="tbal-data__head-row tbal-data__head-row--red-color">
-            <th className="tbal-data__head-title tbal-data__head-title--big">
-              Nome evento
-            </th>
-            <th className="tbal-data__head-title tbal-data__head-title--big">
-              Data do Evento
-            </th>
-            <th className="tbal-data__head-title tbal-data__head-title--big">
-              Descricao
-            </th>
-          </tr>
+    return (
+        <table className="tbal-data">
+            {
+                <thead className="tbal-data__head">
+                    <tr className="tbal-data__head-row tbal-data__head-row--red-color">
+                        <th className="tbal-data__head-title tbal-data__head-title--big">
+                            Nome evento
+                        </th>
+                        <th className="tbal-data__head-title tbal-data__head-title--big">
+                            Data do Evento
+                        </th>
+                        <th className="tbal-data__head-data tbal-data__head-title--big">
+                            Descricao
+                        </th>
+                    </tr>
 
-          <tr
-            className="tbal-data__head-row tbal-data__head-row--red-color"
-          >
-            <th className="tbal-data__head-title tbal-data__head-title--big">
-              {nomeEvento}
-            </th>
-            <th className="tbal-data__head-title tbal-data__head-title--big">
-              
-              {dataEvento}
-            </th>
-            <th className="tbal-data__head-title tbal-data__head-title--big">
-              {descricao}
-            </th>
-          </tr>
-        </thead>
-      }
+                    <tr
+                        className="tbal-data__head-row tbal-data__head-row--red-color"
+                    >
+                        <td className="table-data__data table-data__data--big">
+                            {nomeEvento}
+                        </td>
+                        <td className="table-data__data table-data__data--big">
 
-      <tbody>
-        <tr className="tbal-data__head-row">
-          <td className="table-data__data table-data__data--little">Usuario</td>
-          <td className="table-data__data table-data__data--little">Comentario</td>
-        </tr>
+                            {dataEvento}
+                        </td>
+                        <td className="table-data__data table-data__data--big">
+                            {descricao}
+                        </td>
+                    </tr>
+                </thead>
+            }
 
-        {comentarios.map((c) => {
-          return (
-            <tr className="tbal-data__head-row" key={c.idComentarioEvento}>
-              <td className="table-data__data table-data__data--little">{c.usuario.nome}</td>
-              <td className="table-data__data table-data__data--little">{c.descricao}</td>
+            <div style={{ margin: 50 + "px" }} >
+                <Title titleText={"Comentarios"} />
+            </div>  
+
+
+            <tr className="tbal-data__head-row">
+                <th className="tbal-data__head-title tbal-data__head-title--big">Usuario</th>
+                <th className="tbal-data__head-title tbal-data__head-title--big">Comentario</th>
             </tr>
-          );
-        })}
-      </tbody>
-    </table>
-  );
+
+            {comentarios.map((c) => {
+                return (
+                    <tr className="tbal-data__head-row" key={c.idComentarioEvento}>
+                        <td className="table-data__data table-data__data--big">{c.usuario.nome}</td>
+                        <td className="table-data__data table-data__data--big">{c.descricao}</td>
+                    </tr>
+                );
+            })}
+        </table>
+    );
 };
 
 export default Table;
