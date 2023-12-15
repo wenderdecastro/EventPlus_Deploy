@@ -1,7 +1,7 @@
 import React from "react";
 import "./TableDetails.css";
 
-const Table = ({ nomeEvento, descricao, tipoEvento, dataEvento, comentarios }) => {
+const Table = ({ nomeEvento, descricao, dataEvento, comentarios }) => {
   return (
     <table className="tbal-data">
       {
@@ -11,13 +11,10 @@ const Table = ({ nomeEvento, descricao, tipoEvento, dataEvento, comentarios }) =
               Nome evento
             </th>
             <th className="tbal-data__head-title tbal-data__head-title--big">
-              Descricao
-            </th>
-            <th className="tbal-data__head-title tbal-data__head-title--big">
-              Tipo
-            </th>
-            <th className="tbal-data__head-title tbal-data__head-title--big">
               Data do Evento
+            </th>
+            <th className="tbal-data__head-title tbal-data__head-title--big">
+              Descricao
             </th>
           </tr>
 
@@ -28,15 +25,11 @@ const Table = ({ nomeEvento, descricao, tipoEvento, dataEvento, comentarios }) =
               {nomeEvento}
             </th>
             <th className="tbal-data__head-title tbal-data__head-title--big">
-              {descricao}
-            </th>
-            <th className="tbal-data__head-title tbal-data__head-title--big">
-              
-              {tipoEvento}
-            </th>
-            <th className="tbal-data__head-title tbal-data__head-title--big">
               
               {dataEvento}
+            </th>
+            <th className="tbal-data__head-title tbal-data__head-title--big">
+              {descricao}
             </th>
           </tr>
         </thead>

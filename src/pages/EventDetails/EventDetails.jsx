@@ -4,7 +4,7 @@ import Container from '../../components/Container/Container';
 import { UserContext } from '../../context/AuthContext';
 import Title from '../../components/Title/Title';
 import api, { commentaryEventResource, eventsResource } from '../../Services/Service';
-import { redirect, useParams, useSearchParams } from 'react-router-dom';
+import { redirect, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import Spinner from '../../components/Spinner/Spinner';
 import Table from './TableDetails/TableDetails'
 
@@ -15,6 +15,7 @@ const EventDetails = () => {
     const [comentarios, setComentarios] = useState([]);
     const { eventoId } = useParams();
     const [showSpinner, setShowSpinner] = useState(false);
+    const navigate = useNavigate();
 
 
 
@@ -28,7 +29,7 @@ const EventDetails = () => {
         try {
             const promise = await api.get(`${eventsResource}/${eventoId}`)
             if (promise.status === 200) setEvento(promise.data)
-            else redirect("/")
+            else navigate("/");
         } catch (error) {
             console.error(error);
         }

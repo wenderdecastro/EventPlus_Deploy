@@ -4,20 +4,21 @@ import logo from "../../assets/images/logo-pink.svg";
 import { Input, Button } from "../../components/FormComponents/FormComponents";
 import loginImage from "../../assets/images/login.svg";
 import api, { loginResource } from "../../Services/Service";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Redirect } from "react-router-dom";
 
 import "./LoginPage.css";
 import { UserContext, userDecodeToken } from "../../context/AuthContext";
 
 const LoginPage = () => {
-  const [user, setUser] = useState({ email: "edu@admin.com", senha: "123456" });
+  const [user, setUser] = useState({ email: "admin@admin.com", senha: "admin123" });
+  //as credenciais do comum é comum@comum.com comum123
   //importa os dados globais do usuário
   const { userData, setUserData } = useContext(UserContext);
   const navigate = useNavigate();
 
   useEffect(() => {
     if (userData.nome) {
-      navigate("/");
+      navigate('/')
     }
   }, [userData]);
 
