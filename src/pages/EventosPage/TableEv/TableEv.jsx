@@ -65,7 +65,7 @@ const Table = ({ dados, fnDelete = null, fnUpdate = null }) => {
                   {tp.tipoEvento.titulo}
                 </td>
                 <td className="table-data__data table-data__data--big">
-                  {dateFormateDbToView(tp.dataEvento)}
+                  {dateFormateDbToView(tp.dataEvento)} 
                 </td>
                 <td className="table-data__data table-data__data--big">
                 <Link className="table-data__data table-data__data--big Link" to={`/eventdetails/${tp.idEvento}`}>Detalhes</Link>
